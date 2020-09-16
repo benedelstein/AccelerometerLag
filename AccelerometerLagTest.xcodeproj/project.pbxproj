@@ -11,6 +11,7 @@
 		5695BB8B2511B56B00507975 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695BB8A2511B56B00507975 /* ContentView.swift */; };
 		5695BB8D2511B56C00507975 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5695BB8C2511B56C00507975 /* Assets.xcassets */; };
 		5695BB902511B56C00507975 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5695BB8F2511B56C00507975 /* Preview Assets.xcassets */; };
+		5695BB982511B5B200507975 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695BB972511B5B200507975 /* MotionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		5695BB8C2511B56C00507975 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5695BB8F2511B56C00507975 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5695BB912511B56C00507975 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5695BB972511B5B200507975 /* MotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				5695BB882511B56B00507975 /* AccelerometerLagTestApp.swift */,
 				5695BB8A2511B56B00507975 /* ContentView.swift */,
+				5695BB972511B5B200507975 /* MotionManager.swift */,
 				5695BB8C2511B56C00507975 /* Assets.xcassets */,
 				5695BB912511B56C00507975 /* Info.plist */,
 				5695BB8E2511B56C00507975 /* Preview Content */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5695BB8B2511B56B00507975 /* ContentView.swift in Sources */,
+				5695BB982511B5B200507975 /* MotionManager.swift in Sources */,
 				5695BB892511B56B00507975 /* AccelerometerLagTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
