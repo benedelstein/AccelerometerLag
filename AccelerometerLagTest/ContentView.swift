@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var motionManager = MotionManager()
+    @StateObject var motionManager = MotionManager()
     private let xyMultiplier: Double = 400
     private let maxXY: Double = 100 // max pts to move over in xy plane
     private let zMultiplier: Double = 2
@@ -19,7 +19,7 @@ struct ContentView: View {
             .frame(width: 200, height: 200)
             .foregroundColor(.pink)
             .shadow(radius: 10)
-            .scaleEffect(abs(motionManager.z) > minAcceleration ? CGFloat(1 + zMultiplier * motionManager.z) : 1.0)
+            .scaleEffect(abs(motionManager.z) > minAcceleration ? CGFloat(max(0.5, min(1 + zMultiplier * motionManager.z, 2.0))) : 1.0)
             .offset(
                 x: abs(motionManager.x) > minAcceleration ? CGFloat(clipped(value: motionManager.x * xyMultiplier, maxValue: maxXY)) : 0,
                 y: abs(motionManager.y) > minAcceleration ? CGFloat(clipped(value: -motionManager.y * xyMultiplier, maxValue: maxXY)) : 0

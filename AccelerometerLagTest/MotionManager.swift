@@ -21,7 +21,8 @@ class MotionManager: ObservableObject {
         self.motionManager = CMMotionManager()
         self.motionManager.deviceMotionUpdateInterval = 1/100
         guard self.motionManager.isDeviceMotionAvailable else {return}
-        self.motionManager.startDeviceMotionUpdates(to: .main) { (deviceData, error) in
+        self.motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (deviceData, error) in
+            guard let self = self else { return }
             guard error == nil else {
                 print(error!)
                 return
@@ -32,7 +33,6 @@ class MotionManager: ObservableObject {
                 self.y = userAccel.y
                 self.z = userAccel.z
                 self.magnitude = self.magnitude(from: userAccel)
-                print(userAccel)
             }
         }
     }
