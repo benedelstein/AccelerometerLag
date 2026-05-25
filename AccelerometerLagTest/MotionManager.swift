@@ -4,48 +4,55 @@
 //
 //  Created by Ben Edelstein on 7/19/20.
 //
+
 import Foundation
-import Combine
 import CoreMotion
+import Observation
 
-class MotionManager: ObservableObject {
+@Observable
+final class MotionManager {
 
-    private var motionManager: CMMotionManager
-    @Published var x: Double = 0.0
-    @Published var y: Double = 0.0
-    @Published var z: Double = 0.0
-    @Published var magnitude: Double = 0.0
+    var x: Double = 0.0
+    var y: Double = 0.0
+    var z: Double = 0.0
+    var magnitude: Double = 0.0
 
+    @ObservationIgnored
+    private let motionManager = CMMotionManager()
 
     init() {
-        self.motionManager = CMMotionManager()
-        self.motionManager.deviceMotionUpdateInterval = 1/100
-        guard self.motionManager.isDeviceMotionAvailable else {return}
-        self.motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (deviceData, error) in
-            guard let self = self else { return }
-            guard error == nil else {
-                print(error!)
+        motionManager.deviceMotionUpdateInterval = 1 / 100
+        guard motionManager.isDeviceMotionAvailable else { return }
+        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] deviceData, error in
+            guard let self else { return }
+            if let error {
+                print(error)
                 return
             }
-            if let deviceData = deviceData {
-                let userAccel = deviceData.userAcceleration
-                self.x = userAccel.x
-                self.y = userAccel.y
-                self.z = userAccel.z
-                self.magnitude = self.magnitude(from: userAccel)
-            }
+            guard let deviceData else { return }
+            let userAccel = deviceData.userAcceleration
+            self.x = userAccel.x
+            self.y = userAccel.y
+            self.z = userAccel.z
+            self.magnitude = Self.magnitude(from: userAccel)
         }
     }
-    
-    func magnitude(from acceleration: CMAcceleration) -> Double {
-        return sqrt(pow(acceleration.x,2) + pow(acceleration.y,2) + pow(acceleration.z,2))
+
+    deinit {
+        motionManager.stopDeviceMotionUpdates()
     }
-    
+
+    static func magnitude(from acceleration: CMAcceleration) -> Double {
+        sqrt(acceleration.x * acceleration.x
+             + acceleration.y * acceleration.y
+             + acceleration.z * acceleration.z)
+    }
+
     func stopUpdates() {
         x = 0
         y = 0
         z = 0
         magnitude = 0
-        self.motionManager.stopDeviceMotionUpdates()
+        motionManager.stopDeviceMotionUpdates()
     }
 }
